@@ -27,7 +27,7 @@ class Form extends React.Component {
   }
 
   handleSubmit(){
-    const { onSubmit, articleToEdit, onEdit } = this.props;
+    const { onSubmit, articleToEdit} = this.props;
     const { title, body, author } = this.state;
 
     if(!articleToEdit) {
@@ -36,7 +36,7 @@ class Form extends React.Component {
         body,
         author,
       })
-        .then((res) => onSubmit(res.data))
+        .then((res) => onSubmit('SUBMIT_ARTICLE', res.data))
         .then(() => this.setState({ title: '', body: '', author: '' }));
     } else {
       return axios.patch(`http://localhost:8000/api/articles/${articleToEdit._id}`, {
@@ -44,7 +44,7 @@ class Form extends React.Component {
         body,
         author,
       })
-        .then((res) => onEdit(res.data))
+        .then((res) => onSubmit('EDIT_ARTICLE', res.data))
         .then(() => this.setState({ title: '', body: '', author: '' }));
     }
   }
@@ -86,8 +86,7 @@ class Form extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  onSubmit: data => dispatch({ type: 'SUBMIT_ARTICLE', data }),
-  onEdit: data => dispatch({ type: 'EDIT_ARTICLE', data }),
+  onSubmit: (type, data) => dispatch({ type: type, data }),
 });
 
 const mapStateToProps = state => ({

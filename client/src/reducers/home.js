@@ -1,5 +1,6 @@
 export default (state={articles: []}, action) => {
   switch(action.type) {
+    case "VIEWER_LOADED":
     case 'HOME_PAGE_LOADED':
       return {
         ...state,
@@ -20,6 +21,7 @@ export default (state={articles: []}, action) => {
         ...state,
         articleToEdit: action.article,
       };
+    case 'VIEW_ARTICLE':
     case 'EDIT_ARTICLE':
       return {
         ...state,

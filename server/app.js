@@ -28,6 +28,8 @@ mongoose.set('debug', true);
 
 // Add models
 require('./models/Articles');
+require('./models/Users');
+
 // Add routes
 app.use(require('./routes'));
 
